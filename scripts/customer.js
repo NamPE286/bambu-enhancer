@@ -42,20 +42,26 @@ if (params.has("cusid") && params.has("dl") && params.get("dl") == "318") {
     elem.style.fontSize = "12px";
     elem.style;
 
-    getLastestVisitDate(cusID).then((data) => {
-        elem.innerHTML = `
+    getLastestVisitDate(cusID)
+        .then((data) => {
+            elem.innerHTML = `
             <div>
                 <span>Lần thăm khám gần nhất: ${data.lastestVisit.toLocaleDateString(
                     "VI-vn"
                 )}</span>
-                <button style="width: 100px" id="autofill123">Tự động điền</button>
             </div>
         `;
 
-        document.getElementsByTagName("body")[0].appendChild(elem);
-
-        document.getElementById("autofill123").addEventListener("click", () => {
+            document.getElementsByTagName("body")[0].appendChild(elem);
             fillDate(data.lastestVisit);
+        })
+        .catch(() => {
+            elem.innerHTML = `
+            <div>
+                <span>Chưa thăm khám lần nào</span>
+            </div>
+        `;
+
+            document.getElementsByTagName("body")[0].appendChild(elem);
         });
-    });
 }
