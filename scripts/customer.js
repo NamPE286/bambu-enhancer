@@ -26,8 +26,14 @@ async function getLastestVisitDate(cusID) {
 }
 
 function fillDate(date) {
-    document.getElementsByTagName("input")[8].value =
-        date.toLocaleDateString("VI-vn");
+    document.getElementsByTagName("input")[8].value = date.toLocaleDateString(
+        "VI-vn",
+        {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+        }
+    );
 }
 
 const params = new URLSearchParams(window.location.search);
@@ -47,7 +53,12 @@ if (params.has("cusid") && params.has("dl") && params.get("dl") == "318") {
             elem.innerHTML = `
             <div>
                 <span>Lần thăm khám gần nhất: ${data.lastestVisit.toLocaleDateString(
-                    "VI-vn"
+                    "VI-vn",
+                    {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                    }
                 )}</span>
             </div>
         `;
